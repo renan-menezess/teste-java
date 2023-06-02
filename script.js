@@ -41,7 +41,10 @@ let
 
     
     
-    opcaoInvalida = false;
+    let opcaoInvalida = false;
+    let empate = false;
+
+    let HoraInicio=HoraUrnaInicio();
 
     do {
         console.clear();
@@ -68,7 +71,6 @@ let
         
         switch(codigoVoto) {
             case 200333:
-                somConfirmacao();
 			    break;
 		    case 1:
 			    somConfirmacao();
@@ -98,7 +100,9 @@ let
 			    opcaoInvalida = true;
     }
 
-    }   while (codigoVoto != 0) {
+    }   while (codigoVoto != 200333) {
+
+        HoraTermino=HoraUrnaTermino();
     
         if (votosCandidato1 > votosCandidato2 && votosCandidato1 > votosCandidato3) {
             nomeGanhador = nomeCandidato1;
@@ -124,19 +128,19 @@ let
         console.log("Votos totais: ", votosTotais, "\n");
         
         console.log("Votos no candidato ",nomeCandidato1, ": ", votosCandidato1, " (", 
-            (votosCandidato1) / (votosTotais) * 100.0, "%)\n");
+            ((votosCandidato1) / (votosTotais) * 100.0).toFixed(2), "%)\n");
         
         console.log("Votos no candidato ",nomeCandidato2, ": ", votosCandidato2, " (", 
-            (votosCandidato2) / (votosTotais) * 100.0, "%)\n");
+            ((votosCandidato2) / (votosTotais) * 100.0).toFixed(2), "%)\n");
         
         console.log("Votos no candidato ",nomeCandidato3, ": ", votosCandidato3, " (", 
-            (votosCandidato3) / (votosTotais) * 100.0, "%)\n");
+            ((votosCandidato3) / (votosTotais) * 100.0).toFixed(2), "%)\n");
         
         console.log("Votos em branco: ", votosBranco, " (", 
-            (votosBranco) / (votosTotais) * 100.0, "%)\n");
+            ((votosBranco) / (votosTotais) * 100.0).toFixed(2), "%)\n");
         
         console.log("Votos nulos: ", votosNulos, " (", 
-            (votosNulos) / (votosTotais) * 100.0, "%)\n\n");
+            ((votosNulos) / (votosTotais) * 100.0).toFixed(2), "%)\n\n");
             
     } else {
         
@@ -150,15 +154,37 @@ let
     } else {
         console.log("** Não foi possível determinar um ganhador nesta urna\n\n");
     }
-
+        console.log(HoraInicio);
+        console.log(HoraTermino);
 }
 
 function somConfirmacao() {
+
     let audio = new Audio('desafios-urna-eletronica_audio_confirma-urna.mp3');
+    timeout = setTimeout(500);
 	audio.play();
 }
 
 function boletimUrna(){
     let anoApuracao, diaMesApuracao,  horarioApuracao,  minutoAtual, segundoAtual, mesApuracao;
     return
+}
+
+function HoraUrnaInicio(){
+    var dataAtual = new Date();
+    var dia = dataAtual.getDate();
+    var mes = (dataAtual.getMonth() + 1);
+    var ano = dataAtual.getFullYear();
+    var horas = dataAtual.getHours();
+    var minutos = dataAtual.getMinutes();
+    return "A votação começou no dia:" + dia + "/" + mes + " de " + ano + ". Agora são " + horas + ":" + minutos + "h.";
+}
+function HoraUrnaTermino(){
+    var dataAtual = new Date();
+    var dia = dataAtual.getDate();
+    var mes = (dataAtual.getMonth() + 1);
+    var ano = dataAtual.getFullYear();
+    var horas = dataAtual.getHours();
+    var minutos = dataAtual.getMinutes();
+    return "A votação acabou no dia: " + dia + "/" + mes + " de " + ano + ". Agora são " + horas + ":" + minutos + "h.";
 }
