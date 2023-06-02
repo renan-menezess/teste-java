@@ -45,6 +45,7 @@ let
     let empate = false;
 
     let HoraInicio=HoraUrnaInicio();
+    window.alert(HoraInicio);
 
     do {
         console.clear();
@@ -52,16 +53,15 @@ let
                 console.log("Opção Inválida! \n\n");
                 opcaoInvalida = false;
             }
-        
-        console.log(" Opções de Votos: \n\n");
-        console.log("|-*| 1 |*-| ", nomeCandidato1, "\n");
-        console.log("|-*| 2 |*-| ", nomeCandidato2, "\n");
-        console.log("|-*| 3 |*-| ", nomeCandidato3, "\n");
-        console.log("|-*| 9 |*-| Voto em branco \n");
-        console.log("|-*| 8 |*-| Voto nulo \n");
-        console.log("Digite o PIN para encerrar votação \n");
-        
-        codigoVoto=prompt("Digite agora o código do seu voto: ");
+
+        codigoVoto=prompt(" Opções de Votos: \n\n"+
+        "|-*| 1 |*-| "+ nomeCandidato1, "\n"+
+        "|-*| 2 |*-| "+ nomeCandidato2, "\n"+
+        "|-*| 3 |*-| "+ nomeCandidato3, "\n"+
+        "|-*| 9 |*-| Voto em branco \n"+
+        "|-*| 8 |*-| Voto nulo \n"+
+        "Digite o PIN para encerrar votação \n"+
+        "Digite o seu voto:");
 
         if (codigoVoto !== null) {
             codigoVoto = parseInt(codigoVoto);
@@ -119,43 +119,41 @@ let
     }
 
     console.clear();
-    console.log("** Resultado da apuração desta urna\n\n");
 
     if (votosTotais != 0) {
 			
         percentualGanhador = ((votosTotaisGanhador) / (votosTotais)) * 100.0
     
-        console.log("Votos totais: ", votosTotais, "\n");
+        window.alert("** Resultado da apuração desta urna\n\n"+
+        "Votos totais: ", votosTotais+ "\n"+
+        ("Votos no candidato "+ nomeCandidato1 + ": "+ votosCandidato1 + " ("+ 
+            ((votosCandidato1) / (votosTotais) * 100.0).toFixed(2) + "%)\n")
         
-        console.log("Votos no candidato ",nomeCandidato1, ": ", votosCandidato1, " (", 
-            ((votosCandidato1) / (votosTotais) * 100.0).toFixed(2), "%)\n");
+        ("Votos no candidato "+ nomeCandidato2 + ": "+ votosCandidato2 + " ("+ 
+            ((votosCandidato2) / (votosTotais) * 100.0).toFixed(2) + "%)\n")
         
-        console.log("Votos no candidato ",nomeCandidato2, ": ", votosCandidato2, " (", 
-            ((votosCandidato2) / (votosTotais) * 100.0).toFixed(2), "%)\n");
+        ("Votos no candidato "+ nomeCandidato3 + ": "+ votosCandidato3 + " ("+ 
+            ((votosCandidato3) / (votosTotais) * 100.0).toFixed(2) + "%)\n")
         
-        console.log("Votos no candidato ",nomeCandidato3, ": ", votosCandidato3, " (", 
-            ((votosCandidato3) / (votosTotais) * 100.0).toFixed(2), "%)\n");
+        ("Votos em branco: "+ votosBranco + " ("+ 
+            ((votosBranco) / (votosTotais) * 100.0).toFixed(2) + "%)\n")
         
-        console.log("Votos em branco: ", votosBranco, " (", 
-            ((votosBranco) / (votosTotais) * 100.0).toFixed(2), "%)\n");
-        
-        console.log("Votos nulos: ", votosNulos, " (", 
-            ((votosNulos) / (votosTotais) * 100.0).toFixed(2), "%)\n\n");
+        ("Votos nulos: "+ votosNulos + " ("+ 
+            ((votosNulos) / (votosTotais) * 100.0).toFixed(2) + "%)\n\n"));
             
     } else {
         
-        console.log("** Nenhum voto registrado\n");
+        window.alert("** Nenhum voto registrado\n");
         
     }
 
     if ( !empate) {
-        console.log("** Ganhador nesta urna\n\n");
-        console.log(nomeGanhador, " com ", votosTotaisGanhador, " votos (", percentualGanhador, "%) somados os votos em branco\n");
+        window.alert("** Ganhador nesta urna\n\n"+
+        nomeGanhador+ " com "+ votosTotaisGanhador+ " votos ("+ percentualGanhador+ "%) somados os votos em branco\n");
     } else {
-        console.log("** Não foi possível determinar um ganhador nesta urna\n\n");
+        window.alert("** Não foi possível determinar um ganhador nesta urna\n\n")
     }
-        console.log(HoraInicio);
-        console.log(HoraTermino);
+        window.alert(HoraTermino);
 }
 
 function somConfirmacao() {
@@ -163,11 +161,6 @@ function somConfirmacao() {
     let audio = new Audio('desafios-urna-eletronica_audio_confirma-urna.mp3');
     timeout = setTimeout(500);
 	audio.play();
-}
-
-function boletimUrna(){
-    let anoApuracao, diaMesApuracao,  horarioApuracao,  minutoAtual, segundoAtual, mesApuracao;
-    return
 }
 
 function HoraUrnaInicio(){
